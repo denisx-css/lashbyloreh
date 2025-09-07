@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Booking Status{% endblock %}
+
+{% block content %}
+  <div class="container text-center py-5">
+    {% if appointment.paid %}
+      <h2 class="text-success">Booking Successful ✅</h2>
+      <p>Thank you <strong>{{ appointment.name }}</strong>!</p>
+      <p>Your appointment for <strong>{{ appointment.service.name }}</strong> 
+        {% if appointment.subservice %}
+          ({{ appointment.subservice.name }})
+        {% endif %}
+        has been booked.</p>
+      <p>Total Price: ₦{{ appointment.price }}</p>
+      <p>Deposit Paid (40%): ₦{{ deposit_amount }}</p>
+      <a href="{% url 'index' %}" class="btn btn-primary mt-3">Back to Home</a>
+    {% else %}
+      <h2 class="text-danger">Payment Failed ❌</h2>
+      <p>Hi <strong>{{ appointment.name }}</strong>, we couldn’t confirm your payment.</p>
+      <p>Please try booking again or contact support.</p>
+      <a href="{% url 'index' %}" class="btn btn-warning mt-3">Retry Booking</a>
+    {% endif %}
+  </div>
+{% endblock %}
